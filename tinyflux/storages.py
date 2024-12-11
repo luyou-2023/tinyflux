@@ -8,10 +8,6 @@ A storage object will manage data with a file handle, or in memory.
 
 A storage class is provided to the TinyFlux facade as an initial argument.  The
 TinyFlux instance will manage the lifecycle of the storage instance.
-
-Usage:
-    >>> my_mem_db = TinyFlux(storage=MemoryStorage)
-    >>> my_csv_db = TinyFlux('path/to/my.csv', storage=CSVStorage)
 """
 
 from abc import ABC, abstractmethod
@@ -58,11 +54,6 @@ class Storage(ABC):  # pragma: no cover
 
     Defines an extensible, static interface with required read/write ops and
     index-related getter/setters.
-
-    Custom storage classes should inherit like so:
-        >>> from tinyflux import Storage
-        >>> class MyStorageClass(Storage):
-                ...
     """
 
     _initially_empty: bool
@@ -172,10 +163,6 @@ class CSVStorage(Storage):
 
     CSV provides append-only writes, which is efficient for high-frequency
     writes, common to time-series datasets.
-
-    Usage:
-        >>> from tinyflux import CSVStorage
-        >>> db = TinyFlux("my_csv_store.csv", storage=CSVStorage)
     """
 
     _timestamp_idx = 0
@@ -442,10 +429,6 @@ class MemoryStorage(Storage):
         _initially_empty: No data in the storage instance.
         _memory: List of Points.
         _temp_memory: List of Points.
-
-    Usage:
-        >>> from tinyflux import MemoryStorage
-        >>> db = TinyFlux(storage=MemoryStorage)
     """
 
     _initially_empty: bool
